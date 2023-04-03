@@ -1,6 +1,7 @@
 package main
 
 import (
+	controller "goP10/controllers"
 	"log"
 	"net/http"
 
@@ -10,12 +11,12 @@ import (
 
 func main(){
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/users", Controller.ReturnUsers).Methods("GET")
-	router.HandleFunc("/users/country/{country}", Controller.ReturnUsersByCountry).Methods("GET")
-	router.HandleFunc("/users/{id}", Controller.ReturnUsersById).Methods("GET")
-	router.HandleFunc("/users/{id}", Controller.UpdateUserById).Methods("PUT")
-	router.HandleFunc("/users/{id}", Controller.CreateUser).Methods("POST")
-	router.HandleFunc("/users/{id}", Controller.DeleteUserById).Methods("DELETE")
+	router.HandleFunc("/users", controller.ReturnUsers).Methods("GET")
+	router.HandleFunc("/users/country/{country}", controller.ReturnUsersByCountry).Methods("GET")
+	router.HandleFunc("/users/{id}", controller.ReturnUsersById).Methods("GET")
+	router.HandleFunc("/users/{id}", controller.UpdateUserById).Methods("PUT")
+	router.HandleFunc("/users/{id}", controller.CreateUser).Methods("POST")
+	router.HandleFunc("/users/{id}", controller.DeleteUserById).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 

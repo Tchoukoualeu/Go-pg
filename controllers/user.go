@@ -91,7 +91,6 @@ func UpdateUserById(w http.ResponseWriter, r *http.Request){
 	var updatedUser User
 	json.NewDecoder(r.Body).Decode(&updatedUser)
 
-	fmt.Print(updatedUser)
 	for k, u := range users{
 		if u.Id == id {
 			users = append(users[:k], users[k+1:]...)
@@ -99,7 +98,6 @@ func UpdateUserById(w http.ResponseWriter, r *http.Request){
 		}
 	}
 
-	fmt.Print(users)
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(users)

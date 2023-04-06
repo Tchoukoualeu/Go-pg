@@ -3,21 +3,16 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"goP10/models"
 	"net/http"
 	"strconv"
 
 	"github.com/gorilla/mux"
 )
 
-type User struct {
-	Id int
-	Country string
-	FirstName string
-	LastName string
-	Point int
-}
 
-var users = []User{
+
+var users = []models.User{
 	{1, "France", "Alain", "Gerard", 102},
 	{2, "Belgium", "Madonna", "Dolorean", 302},
 	{3, "Germany", "markus", "Miele", 876},
@@ -35,7 +30,7 @@ func ReturnUsersByCountry(w http.ResponseWriter, r *http.Request){
 	vars := mux.Vars(r)
 	country := vars["country"]
 	
-	usersByCountry := &[]User{}
+	usersByCountry := &[]models.User{}
 	
 	for _,  user := range users{
 		if(user.Country == country){
@@ -56,7 +51,7 @@ func ReturnUsersById(w http.ResponseWriter, r *http.Request){
 		fmt.Print("Unable to convert to string")
 	} 
 	
-	usersByCountry := &[]User{}
+	usersByCountry := &[]models.User{}
 	
 	for _,  user := range users{
 		if(user.Id == id){
@@ -70,7 +65,7 @@ func ReturnUsersById(w http.ResponseWriter, r *http.Request){
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request){
-	var newUser User
+	var newUser models.User
 	json.NewDecoder(r.Body).Decode(&newUser)
 	users = append(users, newUser)
 	
@@ -87,7 +82,7 @@ func UpdateUserById(w http.ResponseWriter, r *http.Request){
 		fmt.Print("Unable to convert to string")
 	} 
 
-	var updatedUser User
+	var updatedUser models.User
 	json.NewDecoder(r.Body).Decode(&updatedUser)
 
 	for k, u := range users{

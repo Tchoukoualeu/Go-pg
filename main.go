@@ -1,11 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"goP10/controllers"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 )
 
 func main(){
@@ -16,6 +19,15 @@ func main(){
 	router.HandleFunc("/users/{id}", controllers.UpdateUserById).Methods("PUT")
 	router.HandleFunc("/users/{id}", controllers.CreateUser).Methods("POST")
 	router.HandleFunc("/users/{id}", controllers.DeleteUserById).Methods("DELETE")
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal(".env could not be loaded")
+	}
+
+	apiKey := os.Getenv("API_KEY")
+
+	fmt.Print(apiKey)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 

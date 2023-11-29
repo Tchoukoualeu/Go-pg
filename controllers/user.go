@@ -3,14 +3,13 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	"goP10/models"
+	"goPG/models"
+	"math/rand"
 	"net/http"
 	"strconv"
 
 	"github.com/gorilla/mux"
 )
-
-
 
 var users = []models.User{
 	{1, "France", "Alain", "Gerard", 102},
@@ -19,6 +18,18 @@ var users = []models.User{
 	{4, "Poland", "Arthur", "Oski", 303},
 	{5, "Cameroon", "Paul", "Zogo", 301},
 }
+
+// Not used
+const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+func RandStringBytes(n int) string {
+    b := make([]byte, n)
+    for i := range b {
+        b[i] = letterBytes[rand.Intn(len(letterBytes))]
+    }
+    return string(b)
+}
+// end of not used
 
 func ReturnUsers(w http.ResponseWriter, r *http.Request){
 	w.WriteHeader(http.StatusOK)
@@ -66,6 +77,9 @@ func ReturnUsersById(w http.ResponseWriter, r *http.Request){
 
 func CreateUser(w http.ResponseWriter, r *http.Request){
 	var newUser models.User
+
+	newUser.Id = rand.Intn(100)
+
 	json.NewDecoder(r.Body).Decode(&newUser)
 	users = append(users, newUser)
 	

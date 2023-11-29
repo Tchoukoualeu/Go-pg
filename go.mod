@@ -1,4 +1,4 @@
-module goP10
+module goPG
 
 go 1.20
 

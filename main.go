@@ -2,16 +2,20 @@ package main
 
 import (
 	"fmt"
-	"goP10/controllers"
+	"goPG/controllers"
 	"log"
 	"net/http"
-	"os"
+
+	// "os"
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 )
 
+
+
 func main(){
+
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/users", controllers.ReturnUsers).Methods("GET")
 	router.HandleFunc("/users/country/{country}", controllers.ReturnUsersByCountry).Methods("GET")
@@ -25,10 +29,13 @@ func main(){
 		log.Fatal(".env could not be loaded")
 	}
 
-	apiKey := os.Getenv("API_KEY")
+	// apiKey := os.Getenv("API_KEY")
 
-	fmt.Print(apiKey)
+	// fmt.Print(apiKey)
 
+	fmt.Print("App listening on port 8080...")
 	log.Fatal(http.ListenAndServe(":8080", router))
-
 }
+
+
+
